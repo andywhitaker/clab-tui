@@ -1,0 +1,67 @@
+# Rust / Cargo build artifacts
+/target
+/target/
+Cargo.lock.bak
+*.rs.bk
+
+# Compiled binaries and release archives
+/clab-tui
+clab-tui
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.bin
+*.out
+*.tar.gz
+*.tgz
+*.zip
+*.tar
+
+# Backup and temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+*.log
+*.profraw
+*.profdata
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables and secrets
+.env
+.env.*
+*.pem
+*.key
+*.token
+*.cert
+*.crt
+
+# Containerlab runtime directories and working topologies
+clab-*/
+*.clab.yml
+*.clab.yaml
+*.clab.tmp
+*.clab.bak
+!examples/demo.clab.yml
+!examples/*.clab.yml
+!examples/*.clab.yaml

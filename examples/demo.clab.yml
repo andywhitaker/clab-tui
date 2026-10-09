@@ -1,0 +1,91 @@
+name: clab-demo
+prefix: ""
+
+mgmt:
+  network: clab-mgmt
+  ipv4-subnet: 172.20.20.0/24
+
+topology:
+  kinds:
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:latest
+    arista_ceos:
+      image: ceos:latest
+    linux:
+      image: ghcr.io/srl-labs/network-multitool:latest
+
+  nodes:
+    # Spine Routers (Nokia SR Linux)
+    spine1:
+      kind: nokia_srlinux
+      type: ixr6
+      mgmt-ipv4: 172.20.20.101
+      labels:
+        clab-tui-x: "20.0"
+        clab-tui-y: "8.0"
+
+    spine2:
+      kind: nokia_srlinux
+      type: ixr6
+      mgmt-ipv4: 172.20.20.102
+      labels:
+        clab-tui-x: "60.0"
+        clab-tui-y: "8.0"
+
+    # Leaf Switches (Arista cEOS & Nokia SRL)
+    leaf1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.20.20.11
+      labels:
+        clab-tui-x: "10.0"
+        clab-tui-y: "22.0"
+
+    leaf2:
+      kind: nokia_srlinux
+      mgmt-ipv4: 172.20.20.12
+      labels:
+        clab-tui-x: "40.0"
+        clab-tui-y: "22.0"
+
+    leaf3:
+      kind: arista_ceos
+      mgmt-ipv4: 172.20.20.13
+      labels:
+        clab-tui-x: "70.0"
+        clab-tui-y: "22.0"
+
+    # Workload Diagnostic Hosts
+    host1:
+      kind: linux
+      mgmt-ipv4: 172.20.20.21
+      labels:
+        clab-tui-x: "10.0"
+        clab-tui-y: "36.0"
+
+    host2:
+      kind: linux
+      mgmt-ipv4: 172.20.20.22
+      labels:
+        clab-tui-x: "40.0"
+        clab-tui-y: "36.0"
+
+    host3:
+      kind: linux
+      mgmt-ipv4: 172.20.20.23
+      labels:
+        clab-tui-x: "70.0"
+        clab-tui-y: "36.0"
+
+  links:
+    # Spine-Leaf Interconnects
+    - endpoints: ["leaf1:eth1", "spine1:e1-1"]
+    - endpoints: ["leaf1:eth2", "spine2:e1-1"]
+    - endpoints: ["leaf2:e1-1", "spine1:e1-2"]
+    - endpoints: ["leaf2:e1-2", "spine2:e1-2"]
+    - endpoints: ["leaf3:eth1", "spine1:e1-3"]
+    - endpoints: ["leaf3:eth2", "spine2:e1-3"]
+
+    # Host-Leaf Edge Links
+    - endpoints: ["host1:eth1", "leaf1:eth3"]
+    - endpoints: ["host2:eth1", "leaf2:e1-3"]
+    - endpoints: ["host3:eth1", "leaf3:eth3"]

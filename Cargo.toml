@@ -1,0 +1,27 @@
+[package]
+name = "clab-tui"
+version = "0.0.1"
+edition = "2021"
+authors = ["Containerlab TUI Team"]
+description = "Terminal UI and interactive 2D network canvas for Containerlab"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/andywhitaker/clab-tui"
+
+[dependencies]
+ratatui = { version = "0.30", features = ["all-widgets"] }
+crossterm = { version = "0.28", features = ["event-stream"] }
+tokio = { version = "1.38", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+serde_json = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+futures-util = "0.3"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+ratatui-image = { version = "12.0.0-rc.2", default-features = false, features = ["crossterm", "image-defaults"] }
+anyhow = "1.0"
+thiserror = "1.0"
+chrono = "0.4"
+base64 = "0.22"
+
+[dev-dependencies]
+tempfile = "3.10"
